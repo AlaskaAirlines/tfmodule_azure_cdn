@@ -1,0 +1,3 @@
+resource_group_name="name-env-group"
+appName="reallyCoolAppName"
+environment="test"
