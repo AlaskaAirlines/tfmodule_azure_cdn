@@ -10,9 +10,12 @@ install: brew
 	tfenv install
 	go get -u golang.org/x/lint/golint
 
+init:
+	go mod init github.com/AlaskaAirlines/tfmodule_azure_cdn
+
 test:
 	go get -u github.com/gruntwork-io/terratest/modules/terraform
 	go get -u github.com/stretchr/testify/assert
 	go test -v ./test/cdn_test.go	
 
-.PHONY: brew install test
+.PHONY: brew install test init

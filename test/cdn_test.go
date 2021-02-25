@@ -12,9 +12,9 @@ func TestCdnModule(t *testing.T) {
 	terraformOptions := &terraform.Options{
 		TerraformDir: "../examples/.",
 		Vars: map[string]interface{}{
-			"resource-group-name": "tfmodulevalidation-test-group",
+			"resource_group_name": "tfmodulevalidation-test-group",
 			"appName":             "aagcdn",
-			"environment":         "test", 
+			"environment":         "test",
 		},
 	}
 	defer terraform.Destroy(t, terraformOptions)
@@ -25,18 +25,18 @@ func TestCdnModule(t *testing.T) {
 	// Assert
 	assert := assert.New(t)
 
-	profile_id := terraform.Output(t, terraformOptions, "profile_id")
-	assert.NotNil(profile_id)
-	assert.Contains("aagcdn", profile_id)
+	profileID := terraform.Output(t, terraformOptions, "profile_id")
+	assert.NotNil(profileID)
+	assert.Contains(profileID, "aagcdn")
 
-	endpoint_id := terraform.Output(t, terraformOptions, "endpoint_id")
-	assert.NotNil(endpoint_id)
-	assert.Contains("aagcdn", endpoint_id)
+	endpointID := terraform.Output(t, terraformOptions, "endpoint_id")
+	assert.NotNil(endpointID)
+	assert.Contains(endpointID, "aagcdn")
 
-	storage_principal_id := terraform.Output(t, terraformOptions, "storage_principal_id")
-	assert.NotNil(storage_principal_id)
+	storagePrincipalID := terraform.Output(t, terraformOptions, "storage_principal_id")
+	assert.NotNil(storagePrincipalID)
 
-	storage_name := terraform.Output(t, terraformOptions, "storage_name")
-	assert.NotNil(storage_name)
-	assert.Contains("aagcdn", storage_name)
+	storageName := terraform.Output(t, terraformOptions, "storage_name")
+	assert.NotNil(storageName)
+	assert.Contains(storageName, "aagcdn")
 }

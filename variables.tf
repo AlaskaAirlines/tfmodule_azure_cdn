@@ -25,6 +25,12 @@ variable "account_kind" {
   default     = "StorageV2"
 }
 
+variable "account_tier" {
+  type        = string
+  description = "Defines the Tier to use for this storage account. Valid options are Standard and Premium."
+  default     = "Standard"
+}
+
 variable "access_tier" {
   type        = string
   description = "The access tier of the storage account."

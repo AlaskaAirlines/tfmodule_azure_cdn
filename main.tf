@@ -9,15 +9,15 @@ data "azurerm_resource_group" "rg" {
 
 resource "azurerm_storage_account" "storeacc" {
   name                      = local.storage_name
-  resource_group_name       = azurerm_resource_group.rg.name
+  resource_group_name       = data.azurerm_resource_group.rg.name
   location                  = var.location
   account_kind              = var.account_kind
   account_tier              = var.account_tier
   account_replication_type  = var.account_replication_type
   enable_https_traffic_only = true
-  tags                      = azurerm_resource_group.rg.tags
+  tags                      = data.azurerm_resource_group.rg.tags
 
-  dynamic "static_website" {
+  static_website {
     error_404_document = var.custom_404_path
   }
 
@@ -38,18 +38,18 @@ resource "azurerm_storage_account" "storeacc" {
 
 resource "azurerm_cdn_profile" "profile" {
   name                = format("%s-profile", local.base_name)
-  location            = var.location
-  resource_group_name = azurerm_resource_group.rg.name
-  tags                = azurerm_resource_group.rg.tags
+  location            = "global"
+  resource_group_name = data.azurerm_resource_group.rg.name
+  tags                = data.azurerm_resource_group.rg.tags
   sku                 = var.cdn_sku_profile
 }
 
 resource "azurerm_cdn_endpoint" "endpoint" {
   name                          = format("%s-ep", local.base_name)
   profile_name                  = azurerm_cdn_profile.profile.name
-  location                      = var.location
-  resource_group_name           = azurerm_resource_group.rg.name
-  tags                          = azurerm_resource_group.rg.tags
+  location                      = "global"
+  resource_group_name           = data.azurerm_resource_group.rg.name
+  tags                          = data.azurerm_resource_group.rg.tags
   origin_host_header            = azurerm_storage_account.storeacc.primary_web_host
   querystring_caching_behaviour = "IgnoreQueryString"
   is_http_allowed               = false

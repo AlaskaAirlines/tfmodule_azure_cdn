@@ -9,7 +9,7 @@ output "endpoint_id" {
 }
 
 output "storage_principal_id" {
-  value       = azurerm_storage_account.storeacc.identity.principal_id
+  value       = azurerm_storage_account.storeacc.identity[0].principal_id
   description = "The Principal ID for the Service Principal associated with the Identity of this Storage Account."
 }
 
